@@ -29,11 +29,9 @@ public class ServerWeb {
         context.addServlet(new ServletHolder(new QueryServlet(jpaRepository)), "/query");
 
         server.start();
-        server.join();
     }
 
     public void stop() throws Exception {
         server.stop();
-        server.join();
     }
 }
