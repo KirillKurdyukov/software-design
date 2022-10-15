@@ -1,11 +1,13 @@
 package ru.itmo.repository;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.itmo.model.Product;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,20 +19,21 @@ import java.util.Properties;
 public class JPARepository {
     private static final Logger logger = LoggerFactory.getLogger(JPARepository.class);
 
-    private final String url;
-    private final String username;
-    private final String password;
+    private final DataSource dataSource;
 
     public JPARepository(Properties properties) {
-        this.url = properties.getProperty("database.url");
-        this.username = properties.getProperty("database.username");
-        this.password = properties.getProperty("database.password");
+        HikariConfig config = new HikariConfig();
+        config.setDriverClassName("org.postgresql.Driver");
+        config.setJdbcUrl(properties.getProperty("database.url"));
+        config.setUsername(properties.getProperty("database.username"));
+        config.setPassword(properties.getProperty("database.password"));
+        this.dataSource = new HikariDataSource(config);
     }
 
     public void insertProduct(Product product) {
         try (Connection connection = connection()) {
             PreparedStatement statement = connection
-                    .prepareStatement("insert into Product (name, product) values (?, ?);");
+                    .prepareStatement("insert into Product (name, price) values (?, ?);");
 
             statement.setString(1, product.name());
             statement.setLong(2, product.price());
@@ -149,6 +152,6 @@ public class JPARepository {
     }
 
     private Connection connection() throws SQLException {
-        return DriverManager.getConnection(url, username, password);
+        return dataSource.getConnection();
     }
 }
