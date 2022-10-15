@@ -30,7 +30,6 @@ public class GetProductsServlet extends HttpServlet {
                 rs.close();
                 stmt.close();
             }
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
