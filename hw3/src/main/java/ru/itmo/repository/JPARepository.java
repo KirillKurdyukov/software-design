@@ -33,7 +33,7 @@ public class JPARepository {
                     .prepareStatement("insert into Product (name, product) values (?, ?);");
 
             statement.setString(1, product.name());
-            statement.setInt(2, product.price());
+            statement.setLong(2, product.price());
 
             statement.executeUpdate();
             statement.close();
@@ -110,13 +110,13 @@ public class JPARepository {
         }
     }
 
-    public int summaryPrice() {
+    public long summaryPrice() {
         try (Connection connection = connection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select sum(price) from Product;");
             resultSet.next();
 
-            int res = resultSet.getInt(1);
+            long res = resultSet.getLong(1);
 
             resultSet.close();
             statement.close();

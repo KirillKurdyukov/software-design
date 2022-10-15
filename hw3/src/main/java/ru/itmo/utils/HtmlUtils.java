@@ -13,6 +13,10 @@ public class HtmlUtils {
         return htmlProducts(productList, null);
     }
 
+    public static String htmlProduct(Product product, String header) {
+        return htmlProducts(List.of(product), header);
+    }
+
     public static String htmlProducts(List<Product> productList, String header) {
         StringBuilder builder = new StringBuilder();
 
@@ -20,6 +24,7 @@ public class HtmlUtils {
         if (header != null) {
             builder.append("<h1>");
             builder.append(header);
+            builder.append(": ");
             builder.append("</h1>");
         }
 
@@ -36,7 +41,7 @@ public class HtmlUtils {
 
     public static String htmlObject(Object object, String header) {
         return "<html><body>" +
-                header +
+                header + ": " +
                 object.toString() +
                 "</body></html>";
     }
