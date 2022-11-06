@@ -1,0 +1,8 @@
+spring.datasource:
+  username: kurdyukov-kir
+  password: 123qweqwe
+  driver-class-name: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:7767/postgres
+
+server:
+  port: 80

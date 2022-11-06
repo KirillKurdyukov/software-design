@@ -1,0 +1,37 @@
+<html lang="ru">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+    <title>Мои дела</title>
+</head>
+<body>
+<table>
+    <h3>Мои списки дел!</h3>
+    <th:block th:each="listWorks : ${listsWorks}">
+        <tr>
+            <td th:text="${listWorks.getListName()}"></td>
+            <td>
+                <form action="/get-list-works" method="GET">
+                    <button type="submit" name="listId" th:value="${listWorks.getListId()}">
+                        Перейти к списку
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form action="/delete-list-works" method="POST">
+                    <button type="submit" name="listId" th:value="${listWorks.getListId()}">
+                        Удалить лист дел
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </th:block>
+    <form action="/create-new-list-works" method="POST">
+        <label for="list">
+            Новый список дел!
+        </label>
+        <input id="list" name="listName" type="text" placeholder="Назовите новый список дел...">
+        <button type="submit">Submit</button>
+    </form>
+</table>
+</body>
+</html>

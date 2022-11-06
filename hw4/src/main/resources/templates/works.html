@@ -1,0 +1,43 @@
+<html lang="ru">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+    <title>Мои дела</title>
+</head>
+<body>
+<h3>
+    <div th:text="${listName}"></div>
+</h3>
+<table>
+    <th:block th:each="work : ${works}">
+        <tr>
+            <td th:text="${work.getWorkName()}"></td>
+            <td th:text="${work.isReady()} ? 'Ready'"></td>
+            <td>
+                <form action="/done-work" method="POST">
+                    <input type="hidden" name="listId" th:value="${listId}">
+                    <button type="submit" name="workId" th:value="${work.getWorkId()}">
+                        Пометить как выполненный
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form action="/delete-work" method="POST">
+                    <input type="hidden" name="listId" th:value="${listId}">
+                    <button type="submit" name="workId" th:value="${work.getWorkId()}">
+                        Удалить дело
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </th:block>
+    <form action="/add-new-work" method="POST">
+        <label for="list">
+            Новое дело!
+        </label>
+        <input id="list" name="workName" type="text" placeholder="Назовите новый список дел...">
+        <button type="submit" name="listId" th:value="${listId}">Submit</button>
+    </form>
+</table>
+<a href="/">Назад</a>
+</body>
+</html>
