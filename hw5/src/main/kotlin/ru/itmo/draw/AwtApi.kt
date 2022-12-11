@@ -16,7 +16,7 @@ import kotlin.system.exitProcess
 class AwtApi : DrawingApi {
 
     override fun drawCircle(p: Point, r: Double) {
-        circles.add(Ellipse2D.Double(p.x - r, p.y -r, 2 * r, 2 * r))
+        circles.add(Ellipse2D.Double(p.x - r, p.y - r, 2 * r, 2 * r))
     }
 
     override fun drawLine(x: Point, y: Point) {
@@ -26,7 +26,7 @@ class AwtApi : DrawingApi {
     override fun drawGraph() {
         addWindowListener(
             object : WindowAdapter() {
-                override fun windowClosed(e: WindowEvent?) {
+                override fun windowClosing(e: WindowEvent?) {
                     exitProcess(0)
                 }
             }

@@ -13,6 +13,9 @@ import ru.itmo.base.Point
 import ru.itmo.base.WIDTH
 
 class JavaFXApi : DrawingApi {
+    private companion object {
+        val shapes: MutableList<Shape> = mutableListOf()
+    }
 
     override fun drawCircle(p: Point, r: Double) {
         shapes.add(Circle(p.x, p.y, r))
@@ -23,19 +26,18 @@ class JavaFXApi : DrawingApi {
     }
 
     override fun drawGraph() {
-        Application.launch(Companion::class.java)
+        Application.launch(JavaFXApp::class.java)
     }
 
-    private companion object : Application() {
-        val shapes: MutableList<Shape> = mutableListOf()
+    class JavaFXApp : Application() {
 
         override fun start(primaryStage: Stage) {
             primaryStage.title = "JavaFX graph visualization"
 
-            val root = Group()
-            shapes.forEach(root.children::add)
+            val root = Group().apply { shapes.forEach(this.children::add) }
 
             primaryStage.scene = Scene(root, WIDTH.toDouble(), HEIGHT.toDouble())
+            primaryStage.show()
         }
     }
 }
