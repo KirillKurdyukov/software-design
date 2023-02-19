@@ -3,7 +3,6 @@ package ru.itmo.actor;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.util.Timeout;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -54,10 +53,5 @@ public class MasterActorTest extends BaseTest {
 
             Assertions.assertEquals("", result);
         }
-    }
-
-    @AfterAll
-    public static void terminateActorSystem() {
-        system.terminate();
     }
 }
