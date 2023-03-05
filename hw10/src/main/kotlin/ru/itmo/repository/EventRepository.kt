@@ -51,7 +51,7 @@ class EventRepository(
     fun countEvents(from: Instant, to: Instant): Int = query(
         """
             select count(*) from events 
-            where (created_at >= ? or created_at <= ?) and event_type = 'START_VISIT';
+            where created_at >= ? and created_at <= ? and event_type = 'START_VISIT';
         """.trimIndent(),
         { rs, _ -> rs.getInt("count") },
         Timestamp.from(from),
