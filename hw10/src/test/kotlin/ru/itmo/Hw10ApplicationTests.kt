@@ -163,6 +163,17 @@ class Hw10ApplicationTests {
         )
 
         assertEquals(3, count)
+
+        val countZero = getCountInterval(
+            FromTo(
+                from = Instant.now()
+                    .minus(3, ChronoUnit.HOURS),
+                to = Instant.now()
+                    .minus(1, ChronoUnit.HOURS),
+            ),
+        )
+
+        assertEquals(0, countZero)
     }
 
     private fun checkTicket(expectedVisit: Int) {
